@@ -1,9 +1,10 @@
 "use client";
 
-import { PlaceData } from "@/lib/types";
+import { ModalType, PlaceData } from "@/lib/types";
+import { Dispatch, SetStateAction } from "react";
 import { IconType } from "react-icons";
 import { FaRegMap, FaStar } from "react-icons/fa";
-import { PiForkKnifeFill } from "react-icons/pi";
+import { IoLocationOutline } from "react-icons/io5";
 
 export function SelectionCard({
     icon: Icon,
@@ -22,11 +23,22 @@ export function SelectionCard({
     );
 }
 
-export function PlaceCard({ data }: { data: PlaceData }) {
+export function PlaceCard({
+    data,
+    setModal,
+}: {
+    data: PlaceData;
+    setModal: Dispatch<SetStateAction<ModalType>>;
+}) {
     return (
-        <div className="h-[21rem] w-[20.5rem] bg-linear-to-b from-transparent via-blue-300/15 to-blue-300/75 rounded-xl flex flex-col justify-between p-4 drop-shadow-lg">
-            <img src={data.image} alt="" className="w-full rounded-md"/>
-            <h1 className="font-semibold">{data.name}</h1>
+        <div className="h-[21rem] w-[20.5rem] bg-linear-to-b from-blue-300/10 via-blue-300/20 to-blue-300/75 rounded-xl flex flex-col justify-between p-4 drop-shadow-lg">
+            <img src={data.image} alt="" className="w-full rounded-md" />
+            <button
+                className="font-semibold w-full text-left hover:underline"
+                onClick={() => setModal({ status: true, data })}
+            >
+                {data.name}
+            </button>
             <div className="w-full flex justify-between">
                 <div className="flex items-center gap-2">
                     <FaRegMap className="size-5" />
@@ -35,8 +47,8 @@ export function PlaceCard({ data }: { data: PlaceData }) {
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <PiForkKnifeFill className="size-5" />
-                    <p className="text-sm text-gray-500">{data.category}</p>
+                    <IoLocationOutline className="size-5" />
+                    <p className="text-sm text-gray-500">{data.address}</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <FaStar className="size-5" />

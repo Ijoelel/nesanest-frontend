@@ -32,7 +32,7 @@ export const data = [
         campus: 1,
         image: "/test/images/3.png",
         address: "UNESA 1",
-        rating: 4.9,
+        rating: 2.4,
         review: [5, 4, 5],
     },
     {
@@ -56,7 +56,7 @@ export const data = [
         campus: 2,
         image: "/test/images/5.png",
         address: "UNESA 2",
-        rating: 4.9,
+        rating: 3.7,
         review: [5, 5, 5],
     },
     {

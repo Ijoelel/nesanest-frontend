@@ -5,12 +5,16 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { data } from "../../../../public/test/data";
-import { PlaceData } from "@/lib/types";
+import { ModalType, PlaceData } from "@/lib/types";
+import { BiArrowBack } from "react-icons/bi";
+import Link from "next/link";
+import Modal from "@/components/modal";
 
 export default function SearchPage() {
     const { key } = useParams();
     const [filter, setFilter] = useState<number>(0);
     const [placeData, setPlaceData] = useState<PlaceData[]>(data);
+    const [modal, setModal] = useState<ModalType>({ status: false, data: {} });
 
     const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
         console.log(event.key);
@@ -26,7 +30,10 @@ export default function SearchPage() {
     }, [filter]);
 
     return (
-        <main className="md:px-96 flex flex-col gap-8">
+        <main className={` md:px-96 flex flex-col gap-8`}>
+            <Link href={"/"}>
+                <BiArrowBack className="size-6" />
+            </Link>
             <div className="flex flex-col gap-2">
                 <div className="bg-white flex p-3 gap-4 w-full justify-start items-center rounded-md drop-shadow-lg">
                     <FiSearch className="size-6 stroke-gray-500" />
@@ -68,9 +75,14 @@ export default function SearchPage() {
             {/* Main Section */}
             <div className="w-full flex flex-wrap gap-4 justify-center">
                 {placeData.map((data, i) => (
-                    <PlaceCard key={i} data={data} />
+                    <PlaceCard key={i} data={data} setModal={setModal} />
                 ))}
             </div>
+            <Modal
+                status={modal.status}
+                data={modal.data}
+                setStatus={setModal}
+            />
         </main>
     );
 }
